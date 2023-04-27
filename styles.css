@@ -1,3 +1,7 @@
+body {
+    
+}
+
 .main-title {
     text-align: center;
 }
@@ -29,4 +33,36 @@
 
 li {
     list-style-type: none;
+}
+
+
+#featured-container {
+    display: grid;
+    
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    /* border: 2px solid black; */
+    margin: 10px 40px;
+}
+
+.box {
+    /* margin: ; */
+    border: 2px solid black;
+    height: 300px;
+    width: 300px;
+}
+
+#charBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#spellChar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
