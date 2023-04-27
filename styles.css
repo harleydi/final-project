@@ -1,0 +1,32 @@
+.main-title {
+    text-align: center;
+}
+
+#search-content {
+    text-align: center;
+}
+
+#search-input {
+    width: 25%;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 10px; */
+    
+}
+
+#autocomplete {
+    border: 2px solid black;
+    width: 25.5%;
+    position: relative;
+    right: 30px;
+    scroll-behavior: auto;
+}
+
+li {
+    list-style-type: none;
+}
