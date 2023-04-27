@@ -52,29 +52,32 @@ getCharacters()
 let loadCharBox = async () => {
     let response = await fetch(characterUrl)
     let data = await response.json()
-    let random = Math.floor(Math.random() * data.length)
     
+    // CHARACTER BOXES 
     charBox.forEach(box => {
+        let random = Math.floor(Math.random() * data.length)
         let curr = data[random]
-        let h3 = document.createElement('h3')
+        let h1 = document.createElement('h1')
         let p = document.createElement('p')
         let btn = document.createElement('button')
         btn.setAttribute('id', 'charInfoBtn')
-        h3.innerText = curr.name
+        h1.innerText = curr.name
         p.innerText = curr.house
         btn.innerText = 'More Details'
-        box.appendChild(h3)
+        box.appendChild(h1)
         box.appendChild(p)
         box.appendChild(btn)
 
         // styles
         if (curr.image !== '') {
             box.style.backgroundImage = `url('${curr.image}')`
+            box.style.backgroundSize = 'cover'
         } else {
             box.style.backgroundImage = `url('./images/hp-char-alt.jpeg')`
             box.style.backgroundSize = 'cover'
         }
-
+        h1.style.fontSize = '2.5rem'
+        h1.style.backgroundClip = 
         btn.style.backgroundColor = 'transparent'
         btn.style.color = 'white'
         btn.style.border = '1px solid white'
@@ -130,23 +133,28 @@ getSpells()
 /* -------------------------------------------------------------------------- */
 
 
-let matchedList = document.createElement('ul')
-autoContainer.appendChild(matchedList)
 
 let matches = []
 
-searchInput.addEventListener('keyup', () => {
-    console.log(searchInput.value)
-    // console.log(characters[0])
-    // characters[0].filter(character => {
-    //     if (character['name'].includes(searchInput.value)) {
-    //         let li = document.createElement('li')
-    //         li.setAttribute('id', 'suggestion')
-    //         li.innerText = character.name
-    //         matchedList.appendChild(li)
-            
-    //     }
-    // })
+searchInput.addEventListener('keyup', (event) => {
+    autoContainer.innerHTML = ''
+    let matchedList = document.createElement('ul')
+    autoContainer.appendChild(matchedList)
+    let value = searchInput.value
+    console.log(event.keyCode)
+    if (event.keyCode >= 48 && event.keyCode <= 90) {
+        console.log(value)
+        characters.filter(character => {
+            if (character['name'].includes(value)) {
+                let li = document.createElement('li')
+                li.setAttribute('id', 'suggestion')
+                li.innerText = character.name
+                matchedList.appendChild(li)
+                
+            }
+        }) 
+    }
+    
   
     
 })
@@ -173,7 +181,7 @@ let houseBox = () => {
         // styles
         if (curr === 'Gryffindor') {
             box.style.backgroundImage = `url('./images/g-box.jpeg')`
-            box.style.backgroundSize = 'auto'
+            box.style.backgroundSize = 'cover'
         } else if (curr === 'Slytherin') {
             box.style.backgroundImage = `url('./images/s-box.jpeg')`
             box.style.backgroundSize = 'cover'
@@ -182,7 +190,7 @@ let houseBox = () => {
             box.style.backgroundSize = 'cover'
         } else if (curr === 'Hufflepuff') {
             box.style.backgroundImage = `url('./images/h-box.jpeg')`
-            box.style.backgroundSize = 'contain'
+            box.style.backgroundSize = 'cover'
         }
     })
 }
