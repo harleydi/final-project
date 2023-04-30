@@ -2,6 +2,7 @@ let body = document.querySelector('body')
 let suggestions = document.querySelectorAll('#suggestion')
 let featureContainer = document.querySelector('#feature-container')
 let searchInput = document.querySelector('#search-input')
+let mainSubmit = document.querySelector('#main-submit')
 let autoContainer = document.querySelector('#autocomplete')
 let charBox = document.querySelectorAll('#charBox')
 let spellBox = document.querySelector('#spellBox')
@@ -9,6 +10,7 @@ let hsBox = document.querySelectorAll('#hsBox')
 let li = document.querySelectorAll('li')
 let btn = document.querySelector('#charInfoBtn')
 let popupContainer = document.querySelector('#popup')
+let popupImg = document.querySelector('#popup-img')
 let cardImg = document.querySelector('#popup-img')
 let cardName = document.querySelector('#card-name')
 let altName = document.querySelector('#alt-name')
@@ -74,6 +76,29 @@ let getCharacters = async () => {
         characters.push(item)
     })
     
+    mainSubmit.addEventListener('click', async (event) => {
+        event.preventDefault()
+        
+        popupContainer.style.visibility = 'visible'
+        let input = searchInput.value.toLowerCase()
+        
+        data.forEach( async el => {
+            if (el.name.toLowerCase() === input) {
+                let respone = await fetch(`https://hp-api.onrender.com/api/character/${el.id}`)
+                let charInfo = await respone.json()
+                console.log(charInfo)
+                
+                fillCard(charInfo[0])
+            }
+        })
+
+        closeCardBtn.addEventListener('click', () => {
+            popupContainer.style.visibility = 'hidden'
+        })
+
+        searchInput.value = ''
+        autoContainer.innerHTML = ''
+    })
     
     
 }
@@ -122,32 +147,7 @@ let loadCharBox = async () => {
             let data = await respone.json()
             console.log(data)
 
-            cardName.innerText = curr.name
-            altName.innerText = curr.alternate_names[0]
-            // cardBday.innerText
-            cardGenderS.innerText = curr.gender
-            cardAncestryS.innerText = curr.ancestry
-            if (curr.alive === true) {
-                cardAliveS.innerText = 'Alive'
-            } else {
-                cardAliveS.innerText = 'Deceased'
-            }
-            cardSpeciesS.innerText = curr.species
-            cardActorS.innerText = curr.actor
-            if (curr.hogwartsStudent === true && curr.hogwartsStaff === false) {
-                cardStudentS.innerText = 'Student'
-            } else if (curr.hogwartsStudent === false && curr.hogwartsStaff === true) {
-                cardStudentS.innerText = 'Staff'
-            }
-            cardHouseS.innerText = curr.house
-            cardPatronusS.innerText = curr.patronus
-            if (curr.wand.length !== null) {
-                wandLength.innerText = `${curr.wand.length}"`
-            } else if (curr.wand.length === null) {
-                wandLength.innerText = ` "`
-            }
-            wandWood.innerText = curr.wand.wood
-            wandCore.innerText = curr.wand.core
+            fillCard(curr)
 
             closeCardBtn.addEventListener('click', () => {
                 popupContainer.style.visibility = 'hidden'
@@ -246,7 +246,7 @@ searchInput.addEventListener('keyup', (event) => {
     }
     
     
-    console.log(suggestions)
+    
     
     
 })
@@ -290,3 +290,42 @@ let houseBox = () => {
 }
 
 houseBox()
+
+
+function fillCard(char) {
+    cardName.innerText = char.name
+    if (char.image !== '') {
+        popupImg.src = char.image
+    } else {
+        popupImg.src = './images/missing-card-img.webp'
+    }
+    if (char.alternate_names) {
+        altName.innerText = char.alternate_names[0]
+    } else {
+        altName.innerText = ''
+    }
+    // cardBday.innerText
+    cardGenderS.innerText = char.gender
+    cardAncestryS.innerText = char.ancestry
+    if (char.alive === true) {
+        cardAliveS.innerText = 'Alive'
+    } else {
+        cardAliveS.innerText = 'Deceased'
+    }
+    cardSpeciesS.innerText = char.species
+    cardActorS.innerText = char.actor
+    if (char.hogwartsStudent === true && char.hogwartsStaff === false) {
+        cardStudentS.innerText = 'Student'
+    } else if (char.hogwartsStudent === false && char.hogwartsStaff === true) {
+        cardStudentS.innerText = 'Staff'
+    }
+    cardHouseS.innerText = char.house
+    cardPatronusS.innerText = char.patronus
+    if (char.wand['length'] !== null) {
+        wandLength.innerText = `${char.wand.length}"`
+    } else if (char.wand['length'] === null) {
+        wandLength.innerText = ` "`
+    }
+    wandWood.innerText = char.wand.wood
+    wandCore.innerText = char.wand.core
+}

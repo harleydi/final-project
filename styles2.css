@@ -10,6 +10,11 @@ body {
     align-items: center;
 }
 
+.main-title {
+    font-size: 12rem;
+    color: white;
+}
+
 
 .card {
     height: 25rem;
@@ -48,12 +53,14 @@ body {
 
 #main-submit {
     background: transparent;
+    border: none;
 }
 
 #autocomplete {
     text-align: center;
     position: relative;
     overflow: visible;
+    color: white;
 }
 
 li {
@@ -114,6 +121,16 @@ li {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+
+#card-name {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#alt-name {
+    margin-top: 0;
+    padding-top: 0;
 }
 
 #card-bday {
