@@ -4,37 +4,81 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Castoro+Titling&family=Foldit:wght@300;400&family=Mynerve&display=swap" rel="stylesheet">
     <title>Potter World</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles2.css">
 </head>
 <body>
-    
+
+    <!-- <div id="popup-container"> -->
+        <div id="popup">
+            <button type="button" class="btn-close" id="close-card-btn"></button>
+            <div id="intro">
+                <img class="img-thumbnail" id="popup-img" src="./images/missing-card-img.webp">
+                <h2 id="card-name"></h2>
+                <p id="alt-name"></p>
+                <p id="card-bday">31-07-1980</p>
+            </div>
+            <div class="popup-body">
+                <div id="info-container">
+                    <div id="biological">
+                        <p class="label" id="card-gender">Gender <span class="non-label" id="card-gender-s"></span></p>
+                        <p class="label" id="card-ancestry">Ancestry <span class="non-label" id="card-ancestry-s">half-blood</span></p>
+                        <p class="label" id="card-alive">Alive/Deceased <span class="non-label" id="card-alive-s"></span></p>
+                        <p class="label" id="card-species">Species <span class="non-label" id="card-species-s"></span></p>
+                    </div>
+                    <div id="magical">
+                        <p class="label" id="card-actor">Actor <span class="non-label" id="card-actor-s"></span></p>
+                        <p class="label" id="card-student">Student/Staff <span class="non-label" id="card-student-s"></span></p>
+                        <p class="label" id="card-house">House <span class="non-label" id="card-house-s"></span></p>
+                        <p class="label" id="card-patronus">Patronus <span class="non-label" id="card-patronus-s"></span></p>
+                    </div>
+                </div>
+                <div id="card-wand">
+                    <h1 id="wand-title">Wand</h1>
+                    <div id="wand-info">
+                        <p class="label" id="wand-length">Length: <span class="non-label" id="wand-length-s"></span></p>
+                        <p class="label" id="wand-wood">Wood: <span class="non-label" id="wand-wood-s"></span></p>
+                        <p class="label" id="wand-core">Core: <span class="non-label" id="wand-core-s"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+
+
     <div class="main-section">
         <h1 class="main-title">Potter World</h1>
-    </div>
-
-
-
-
-    <form autocomplete="off" id="search-content">
-        <!-- <label for="">Where would you like to travel to?</label> -->
-        <input type="text" list="cities" id="search-input" placeholder="Seach Characters, Houses or Spells">
-        <input type="submit" id="main-submit">
-    </form>
-    <div class="container">
-        <div id="autocomplete"></div>
+        <form autocomplete="off"  id="search-content">
+            <div class="input-group mb-3">
+                <input type="text" id="search-input" placeholder="Seach Characters, Houses or Spells">
+                <input type="submit" class="btn btn-dark" id="main-submit">
+            </div>
+            <div class="container">
+                <div id="autocomplete"></div>
+            </div>
+        </form>
     </div>
 
     <div id="featured-container">
-        <div class="box" id="charBox"></div>
-        <div class="box" id="spellChar"></div>
-        <div class="box" id="charBox"></div>
-        <div class="box" id="hsBox"></div>
-        <div class="box" id="charBox"></div>
-        <div class="box" id="hsBox"></div>
+        <div class="row">
+            <div class="card text-bg-dark col" id="charBox"></div>
+            <div class="card text-bg-dark col" id="spellBox"></div>
+            <div class="card text-bg-dark col" id="charBox"></div>
+        </div>
+        <div class="row">
+            <div class="card text-bg-dark col" id="hsBox"></div>
+            <div class="card text-bg-dark col" id="charBox"></div>
+            <div class="card text-bg-dark col" id="hsBox"></div>
+        </div>
     </div>
 
 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="main.js"></script>
 </body>
 </html>

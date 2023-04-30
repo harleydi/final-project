@@ -1,9 +1,43 @@
+.card {
+    height: 30rem;
+    margin: 20px;
+}
+
+/* .card:hover {
+    margin: 10px;
+} */
+
+/* MAIN CSS */
+
 body {
-    
+    background: black;
+}
+
+.main-section {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
 }
 
 .main-title {
+    margin-bottom: 0;
     text-align: center;
+    font-family: 'Castoro Titling', cursive;
+    font-size: 10rem;
+    color: white;
+}
+
+#main-submit {
+    height: 35px;
+    width: 80px;
+    background-color: transparent;
+    border: none;
+    /* border: 2px solid white; */
+    font-family: 'Castoro Titling', cursive;
+    color: white;
+    font-size: medium;
+    letter-spacing: 2px;
 }
 
 #search-content {
@@ -11,8 +45,18 @@ body {
 }
 
 #search-input {
-    width: 25%;
+    width: 30%;
+    height: 30px;
     text-align: center;
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+}
+
+#search-input:focus {
+    outline: none;
 }
 
 .container {
@@ -24,15 +68,28 @@ body {
 }
 
 #autocomplete {
-    border: 2px solid black;
-    width: 25.5%;
-    position: relative;
-    right: 30px;
-    scroll-behavior: auto;
+    border: none;
+    color: white;
+    background-color: black;
+    opacity: .8;
+    /* position: relative; */
+    width: 30%;
+    /* height: 125px; */
+    margin-right: 80px;
+    /* right: 30px; */
+    z-index: 10;
+    /* outline: none; */
 }
+
+
 
 li {
     list-style-type: none;
+}
+
+li:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 
@@ -42,7 +99,7 @@ li {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     /* border: 2px solid black; */
-    margin: 10px 40px;
+    /* margin: 10px 40px; */
 }
 
 .box {
@@ -58,6 +115,71 @@ li {
     justify-content: center;
     align-items: center;
     color: white;
+}
+
+#popup-container {
+    height: 85vh;
+    width: 80%;
+    text-align: center;
+    z-index: 1;
+    background-color: white;
+    position: fixed;
+    left: 8rem;
+    top: 4rem;
+    opacity: .9;
+    visibility: hidden;
+    
+}
+
+#intro > img {
+    height: 15rem;
+    margin-top: 10px;
+}
+
+#card-name {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+#alt-name {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+#card-bday {
+    margin-top: 0;
+    
+}
+
+#wand-title {
+    margin-bottom: 0;
+}
+
+#wand-info {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 0;
+}
+
+#info-container {
+    display: flex;
+
+    justify-content: space-evenly;
+}
+
+#pop-up {
+    height: 200px;
+    width: 250px;
+    background: white;
+    z-index: 10;
+    position: none;
+}
+
+#hsBox > img {
+    max-height: 100%;
+    /* max-width: 00%; */
+    
 }
 
 #spellChar {
