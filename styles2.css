@@ -27,6 +27,10 @@ body {
     color: white;
 }
 
+.text-bg-dark {
+    background-color: transparent;
+}
+
 
 .card {
     height: 25rem;
@@ -74,6 +78,10 @@ body {
     position: relative;
     overflow: visible;
     color: white;
+}
+
+#refresh-btn {
+    margin-left: 20px;
 }
 
 li {
@@ -238,12 +246,16 @@ li {
     overflow-x: hidden;
     padding-top: 60px;
     background-color: rgba(33, 37, 41, 0.9);
-    opacity: .95;
+    /* opacity: .95; */
     /* display: flex; */
 }
 
-#fave-btn {
+#fav-btn {
+    margin-top: 15px;
+}
 
+#fave-btn:hover {
+    color: #ffc007;
 }
 
 #close-fav-btn {
@@ -254,6 +266,7 @@ li {
     /* width: 1rem; */
     display: flex;
     /* justify-content: center; */
+    overflow: scroll;
     
 }
 

@@ -48,7 +48,7 @@ let spellDesc = document.querySelector('#spell-card-description')
 
 
 
-let favArr = []
+
 
 
 
@@ -71,7 +71,7 @@ let spellUrl = 'https://hp-api.onrender.com/api/spells'
 let characters = []
 let houses = []
 let spells = []
-
+let favArr = []
 
 
 /* -------------------------------------------------------------------------- */
@@ -87,28 +87,26 @@ let getCharacters = async () => {
         item['favorite'] = false
         characters.push(item)
         // console.log(item)
+        
     })
     
-    mainCharSubmit.addEventListener('click', async (event) => {
+    mainCharSubmit.addEventListener('click', (event) => {
         event.preventDefault()
         
         
         let input = searchInput.value.toLowerCase()
-
         
         popupContainer.style.visibility = 'visible'
+
         characters.forEach(  el => {
             if (el.name.toLowerCase() === input) {
-                // let respone = await fetch(`https://hp-api.onrender.com/api/character/${el.id}`)
-                // let charInfo = await respone.json()
+                
                 let charInfo = el
                 console.log(charInfo)
                     
-                fillCard(charInfo[0])
+                fillCard(charInfo)
             }
         })
-  
-        
 
         closeCardBtn.addEventListener('click', () => {
             popupContainer.style.visibility = 'hidden'
@@ -117,9 +115,6 @@ let getCharacters = async () => {
         searchInput.value = ''
         autoContainer.innerHTML = ''
     })
-
-    
-    
     
 }
 
@@ -180,10 +175,8 @@ let loadCharBox = async () => {
         // styles
         if (curr.image !== '') {
             boximg.src = `${curr.image}`
-            // box.style.backgroundSize = 'cover'
         } else {
             boximg.src = './images/hp-char-alt.jpeg'
-            // box.style.backgroundSize = 'cover'
         }
         h1.style.fontSize = '2.5rem'
         h1.style.backgroundClip = 
@@ -194,9 +187,11 @@ let loadCharBox = async () => {
         
         // console.log(curr)
     })
+
 }
 
 loadCharBox()
+
 
 
 let getHouses = async () => {
@@ -204,16 +199,9 @@ let getHouses = async () => {
     let data = await response.json()
     houses.push(data)
     // console.log(data)
-
-    // hsBox.forEach(box => {
-    //     let h1 = document.createElement('h1')
-    //     // let
-    // })
 }
 
 getHouses()
-
-
 
 
 let getSpells = async () => {
@@ -236,10 +224,13 @@ let getSpells = async () => {
     }
     loadSpell()
 
-    
 }
 
 getSpells()
+
+
+
+
 
 
 /* -------------------------------------------------------------------------- */
@@ -296,6 +287,7 @@ searchInput.addEventListener('keyup', (event) => {
     
 })
 
+
 mainSpellSubmit.addEventListener('click', (event) => {
     event.preventDefault()
     spellPopup.style.visibility = 'visible'
@@ -306,22 +298,20 @@ mainSpellSubmit.addEventListener('click', (event) => {
         }
     })
 
+    searchInput.value = ''
+    autoContainer.innerHTML = ''
+
     closeScardBtn.addEventListener('click', () => {
         spellPopup.style.visibility = 'hidden'
     })
 })
 
 
-
-
-
-
-
 favoriteBtn.addEventListener('click', () => {
     favoritesBar.style.visibility = 'visible'
-
     
     favArr.forEach(fave => {
+        console.log(fave)
         let div = document.createElement('div')
         let img = document.createElement('img')
         let name = document.createElement('h2')
@@ -340,7 +330,9 @@ favoriteBtn.addEventListener('click', () => {
         favoritesBar.appendChild(div)
 
     })
+    
 })
+
 
 closeFavBtn.addEventListener('click' , () => {
     favoritesBar.style.visibility = 'hidden'
@@ -388,11 +380,8 @@ houseBox()
 function fillCard(char) {
     currCardInfo = char
     cardName.innerText = char.name
-    if (char.favorite === false) {
-        favorite.style.color = 'black'
-    } else if (char.favorite === true) {
-        favorite.style.color = '#ffc007'
-    }
+    favorite.style.color = 'black'
+    
     if (char.image !== '') {
         popupImg.src = char.image
     } else {
@@ -430,16 +419,14 @@ function fillCard(char) {
     wandCore.innerText = char.wand.core
 
     favorite.addEventListener('click', () => {
-        if (char.favorite === false) {
-            favorite.style.color = '#ffc007'
-            char.favorite = true
-            favArr.push(char)
-            console.log(char)
-        } else {
-            favorite.style.color = 'black'
-            char.favorite = false
-            console.log(char)
-        }
+        
+        favorite.style.color = '#ffc007'
+        char.favorite = true
+        
+        favArr.push(char)    
+            
+        console.log(favArr)
+        
     })
     
 }
