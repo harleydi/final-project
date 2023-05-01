@@ -2,7 +2,8 @@ let body = document.querySelector('body')
 let suggestions = document.querySelectorAll('#suggestion')
 let featureContainer = document.querySelector('#feature-container')
 let searchInput = document.querySelector('#search-input')
-let mainSubmit = document.querySelector('#main-submit')
+let mainCharSubmit = document.querySelector('#main-char-submit')
+let mainSpellSubmit = document.querySelector('#main-spell-submit')
 let autoContainer = document.querySelector('#autocomplete')
 let charBox = document.querySelectorAll('#charBox')
 let spellBox = document.querySelector('#spellBox')
@@ -13,6 +14,7 @@ let popupContainer = document.querySelector('#popup')
 let popupImg = document.querySelector('#popup-img')
 let cardImg = document.querySelector('#popup-img')
 let cardName = document.querySelector('#card-name')
+let favorite = document.querySelector('#favorite > .fa-star')
 let altName = document.querySelector('#alt-name')
 let cardBday = document.querySelector('#card-bday')
 let cardGender = document.querySelector('#card-gender')
@@ -36,8 +38,21 @@ let wandLength = document.querySelector('#wand-length-s')
 let wandWood = document.querySelector('#wand-wood-s')
 let wandCore = document.querySelector('#wand-core-s')
 let closeCardBtn = document.querySelector('#close-card-btn')
+let closeFavBtn = document.querySelector('#close-fav-btn')
+let favoritesBar = document.querySelector('#favorites-bar')
+let favoriteBtn = document.querySelector('#fav-btn')
+let spellPopup = document.querySelector('#spell-popup')
+let closeScardBtn = document.querySelector('#close-scard-btn')
+let spellName = document.querySelector('#spell-card-name')
+let spellDesc = document.querySelector('#spell-card-description')
 
-// spans
+
+
+let favArr = []
+
+
+
+let currCardInfo = ''
 
 
 
@@ -69,28 +84,31 @@ let getCharacters = async () => {
     // characters.push(data)
     
     data.forEach(item => {
-        // console.log(item)
-        // let obj = {}
-        // obj.id = item.id
-        // obj.name = item.name
+        item['favorite'] = false
         characters.push(item)
+        // console.log(item)
     })
     
-    mainSubmit.addEventListener('click', async (event) => {
+    mainCharSubmit.addEventListener('click', async (event) => {
         event.preventDefault()
         
-        popupContainer.style.visibility = 'visible'
-        let input = searchInput.value.toLowerCase()
         
-        data.forEach( async el => {
+        let input = searchInput.value.toLowerCase()
+
+        
+        popupContainer.style.visibility = 'visible'
+        characters.forEach(  el => {
             if (el.name.toLowerCase() === input) {
-                let respone = await fetch(`https://hp-api.onrender.com/api/character/${el.id}`)
-                let charInfo = await respone.json()
+                // let respone = await fetch(`https://hp-api.onrender.com/api/character/${el.id}`)
+                // let charInfo = await respone.json()
+                let charInfo = el
                 console.log(charInfo)
-                
+                    
                 fillCard(charInfo[0])
             }
         })
+  
+        
 
         closeCardBtn.addEventListener('click', () => {
             popupContainer.style.visibility = 'hidden'
@@ -99,6 +117,8 @@ let getCharacters = async () => {
         searchInput.value = ''
         autoContainer.innerHTML = ''
     })
+
+    
     
     
 }
@@ -145,13 +165,15 @@ let loadCharBox = async () => {
             popupContainer.style.visibility = 'visible'
             let respone = await fetch(oneCharacterUrl + curr.id)
             let data = await respone.json()
-            console.log(data)
+            // console.log(data)
 
-            fillCard(curr)
+            
+            fillCard(data[0])
 
             closeCardBtn.addEventListener('click', () => {
                 popupContainer.style.visibility = 'hidden'
             })
+
         })
         
 
@@ -167,7 +189,7 @@ let loadCharBox = async () => {
         h1.style.backgroundClip = 
         btn.style.backgroundColor = 'transparent'
         btn.style.color = 'white'
-        btn.style.border = '1px solid white'
+        
 
         
         // console.log(curr)
@@ -199,6 +221,8 @@ let getSpells = async () => {
     let data = await response.json()
     spells.push(data)
     // console.log(data)
+    
+    // Load spell box
     let loadSpell = () => {
         let random = Math.floor(Math.random() * data.length)
         let curr = data[random]
@@ -211,6 +235,8 @@ let getSpells = async () => {
         spellBox.appendChild(p)
     }
     loadSpell()
+
+    
 }
 
 getSpells()
@@ -240,18 +266,85 @@ searchInput.addEventListener('keyup', (event) => {
                 li.setAttribute('id', 'suggestion')
                 li.innerText = character.name
                 matchedList.appendChild(li)
+
+                li.addEventListener('click', () => {
+                    searchInput.value = li.innerText
+                })
                 
             }
-        }) 
+        })
+
+        
+        spells[0].filter(spell => {
+            // console.log(spell.name)
+            if (spell.name.includes(value)) {
+                let li = document.createElement('li')
+                li.setAttribute('id', 'suggestion')
+                li.style.color = 'green'
+                li.innerText = spell.name
+                matchedList.appendChild(li)
+
+                li.addEventListener('click', () => {
+                    searchInput.value = li.innerText
+                })
+                
+            }
+        })
     }
-    
-    
-    
+
     
     
 })
 
+mainSpellSubmit.addEventListener('click', (event) => {
+    event.preventDefault()
+    spellPopup.style.visibility = 'visible'
+    spells[0].forEach(spell => {
+        if (searchInput.value.toLowerCase() === spell.name.toLowerCase()) {
+            fillSpellCard(spell)
+            console.log(spell.name)
+        }
+    })
 
+    closeScardBtn.addEventListener('click', () => {
+        spellPopup.style.visibility = 'hidden'
+    })
+})
+
+
+
+
+
+
+
+favoriteBtn.addEventListener('click', () => {
+    favoritesBar.style.visibility = 'visible'
+
+    
+    favArr.forEach(fave => {
+        let div = document.createElement('div')
+        let img = document.createElement('img')
+        let name = document.createElement('h2')
+        img.setAttribute('class', 'img-thumbnail')
+        img.setAttribute('id', 'fave-card-img')
+        div.setAttribute('id', 'fav-card')
+        div.setAttribute('class', 'card')
+        if (fave.image !== '') {
+            img.src = fave.image
+        } else {
+            img.src = './images/missing-card-img.webp'
+        }
+        name.innerText = fave.name
+        div.appendChild(img)
+        div.appendChild(name)
+        favoritesBar.appendChild(div)
+
+    })
+})
+
+closeFavBtn.addEventListener('click' , () => {
+    favoritesBar.style.visibility = 'hidden'
+})
 
 
 
@@ -293,12 +386,19 @@ houseBox()
 
 
 function fillCard(char) {
+    currCardInfo = char
     cardName.innerText = char.name
+    if (char.favorite === false) {
+        favorite.style.color = 'black'
+    } else if (char.favorite === true) {
+        favorite.style.color = '#ffc007'
+    }
     if (char.image !== '') {
         popupImg.src = char.image
     } else {
         popupImg.src = './images/missing-card-img.webp'
     }
+    
     if (char.alternate_names) {
         altName.innerText = char.alternate_names[0]
     } else {
@@ -328,4 +428,25 @@ function fillCard(char) {
     }
     wandWood.innerText = char.wand.wood
     wandCore.innerText = char.wand.core
+
+    favorite.addEventListener('click', () => {
+        if (char.favorite === false) {
+            favorite.style.color = '#ffc007'
+            char.favorite = true
+            favArr.push(char)
+            console.log(char)
+        } else {
+            favorite.style.color = 'black'
+            char.favorite = false
+            console.log(char)
+        }
+    })
+    
 }
+
+function fillSpellCard(char) {
+    spellName.innerText = char.name
+    spellDesc.innerText = char.description
+}
+
+

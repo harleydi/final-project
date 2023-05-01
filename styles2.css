@@ -1,5 +1,17 @@
 body {
     background-color: black;
+    height: 100vh;
+}
+
+#navbar {
+    height: 8vh;
+    
+}
+
+.nav-btn {
+    color: white;
+    text-decoration: none;
+    list-style: none;
 }
 
 .main-section {
@@ -24,10 +36,11 @@ body {
 }
 
 .card-img {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     background-color: #000;
     opacity: .6;
+    
 }
 
 .card-img-overlay {
@@ -65,6 +78,12 @@ body {
 
 li {
     list-style: none;
+}
+
+#charInfoBtn {
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 5px 15px;
 }
 
 #spellBox {
@@ -107,7 +126,8 @@ li {
     position: fixed;
     height: 35rem;
     width: 65vw;
-    background-color: gray;
+    background-color: rgba(33, 37, 41, 0.98);
+    color: black;
     display: flex;
     justify-content: space-evenly;
     visibility: hidden;
@@ -126,6 +146,14 @@ li {
 #card-name {
     margin-bottom: 0;
     padding-bottom: 0;
+}
+
+#favorite {
+    font-size: larger;
+}
+
+#favorite:hover {
+    color: #ffc007;
 }
 
 #alt-name {
@@ -164,4 +192,84 @@ li {
     display: flex;
     gap: 16px;
     justify-content: center;
+}
+
+
+/* SPELL POPUP */
+
+#spell-popup {
+    position: fixed;
+    background-color: rgba(33, 37, 41, 0.9);
+    color: black;
+    
+    height: 35rem;
+    width: 65vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    z-index: 1;
+    top: 80px;
+    margin-left: 240px;
+}
+
+#close-scard-btn {
+    color: black;
+    font-size: larger;
+    width: 10%;
+    position: absolute;
+    padding: 0;
+    top: 20px;
+    left: 25px;
+}
+
+
+/* FAVORITES */
+
+#favorites-bar {
+    visibility: hidden;
+    height: 100%;
+    width: 25%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 60px;
+    background-color: rgba(33, 37, 41, 0.9);
+    opacity: .95;
+    /* display: flex; */
+}
+
+#fave-btn {
+
+}
+
+#close-fav-btn {
+    width: 3vw;
+}
+
+#fav-card-container {
+    /* width: 1rem; */
+    display: flex;
+    /* justify-content: center; */
+    
+}
+
+#fav-card {
+    /* width: 60rem; */
+    height: 17rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#fave-card-img {
+    height: 10rem;
+    width: 10rem;
+}
+
+#next-btn {
+    width: 3rem;
 }
