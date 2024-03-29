@@ -59,10 +59,10 @@ let currCardInfo = ''
 /* -------------------------------------------------------------------------- */
 /*                                    URLS                                    */
 /* -------------------------------------------------------------------------- */
-let characterUrl = 'https://hp-api.onrender.com/api/characters'
-let oneCharacterUrl = 'https://hp-api.onrender.com/api/character/'
-let houseUrl = 'https://hp-api.onrender.com/api/characters/house/:house'
-let spellUrl = 'https://hp-api.onrender.com/api/spells'
+let characterUrl = 'https://potterhead-api.vercel.app/api/characters'
+let oneCharacterUrl = 'https://potterhead-api.vercel.app//api/characters/'
+let houseUrl = 'https://potterhead-api.vercel.app/api/houses'
+let spellUrl = 'https://potterhead-api.vercel.app/api/spells'
 
 
 /* -------------------------------------------------------------------------- */
@@ -82,6 +82,7 @@ let getCharacters = async () => {
     let response = await fetch(characterUrl)
     let data = await response.json()
     // characters.push(data)
+    
     
     data.forEach(item => {
         item['favorite'] = false
@@ -124,7 +125,7 @@ getCharacters()
 let loadCharBox = async () => {
     let response = await fetch(characterUrl)
     let data = await response.json()
-    
+    console.log(data)
     
     // CHARACTER BOXES 
     charBox.forEach( async (box) => {
